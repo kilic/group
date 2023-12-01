@@ -4,13 +4,9 @@ use ff::{Field, PrimeField};
 use rand::SeedableRng;
 use rand_xorshift::XorShiftRng;
 
-use crate::{
-    prime::{PrimeCurve, PrimeCurveAffine},
-    wnaf::WnafGroup,
-    GroupEncoding, UncompressedEncoding,
-};
+use crate::{wnaf::WnafGroup, Curve, CurveAffine, Encoding, Group, UncompressedEncoding};
 
-pub fn curve_tests<G: PrimeCurve>() {
+pub fn curve_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -188,7 +184,7 @@ pub fn random_wnaf_tests<G: WnafGroup>() {
     }
 }
 
-fn random_negation_tests<G: PrimeCurve>() {
+fn random_negation_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -218,7 +214,7 @@ fn random_negation_tests<G: PrimeCurve>() {
     }
 }
 
-fn random_doubling_tests<G: PrimeCurve>() {
+fn random_doubling_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -246,7 +242,7 @@ fn random_doubling_tests<G: PrimeCurve>() {
     }
 }
 
-fn random_multiplication_tests<G: PrimeCurve>() {
+fn random_multiplication_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -281,7 +277,7 @@ fn random_multiplication_tests<G: PrimeCurve>() {
     }
 }
 
-fn random_addition_tests<G: PrimeCurve>() {
+fn random_addition_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -361,7 +357,7 @@ fn random_addition_tests<G: PrimeCurve>() {
     }
 }
 
-fn random_transformation_tests<G: PrimeCurve>() {
+fn random_transformation_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -398,7 +394,7 @@ fn random_transformation_tests<G: PrimeCurve>() {
     }
 }
 
-fn random_compressed_encoding_tests<G: PrimeCurve>() {
+fn random_compressed_encoding_tests<G: Curve>() {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
         0xe5,
@@ -424,9 +420,9 @@ fn random_compressed_encoding_tests<G: PrimeCurve>() {
     }
 }
 
-pub fn random_uncompressed_encoding_tests<G: PrimeCurve>()
+pub fn random_uncompressed_encoding_tests<G: Curve>()
 where
-    <G as PrimeCurve>::Affine: UncompressedEncoding,
+    <G as Curve>::Affine: UncompressedEncoding,
 {
     let mut rng = XorShiftRng::from_seed([
         0x59, 0x62, 0xbe, 0x5d, 0x76, 0x3d, 0x31, 0x8d, 0x17, 0xdb, 0x37, 0x32, 0x54, 0x06, 0xbc,
